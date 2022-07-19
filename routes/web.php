@@ -16,13 +16,14 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
-
+Route::post('/cat', [EbookController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/home', [EbookController::class, 'store'])->name('home.store');
 Route::get('edit/{id}', [EbookController::class, 'edit'])->name('edit');

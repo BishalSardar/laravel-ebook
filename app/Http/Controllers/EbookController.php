@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Ebook;
 use Illuminate\Http\Request;
 use Exception;
@@ -15,7 +16,13 @@ class EbookController extends Controller
      */
     public function index()
     {
-        //
+        $cat_arr = array('All', 'Comic', 'Fantasy');
+        $data = new Category();
+        for ($i = 0; $i < count($cat_arr); $i++) {
+            $data->category = $cat_arr[$i];
+            $data->save();
+        };
+        return $cat_arr;
     }
 
     /**

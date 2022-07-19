@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -16,8 +17,11 @@ use App\Http\Controllers\HomeController;
 */
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::post('/home', [EbookController::class, 'store'])->name('home.store');
-Route::get('edit/{id}', [EbookController::class, 'edit'])->name('edit');
-Route::post('update/{id}', [EbookController::class, 'update'])->name('update');
-Route::get('delete/{id}', [EbookController::class, 'delete'])->name('delete');
+Route::get('/all-ebook', [ApiController::class, 'allEbook']);
+Route::get('/ebook/{id}', [ApiController::class, 'singleEbook']);
+
+Route::get('/all-bookmark', [ApiController::class, 'allBookmark']);
+
+Route::post('/bookmark/{id}', [ApiController::class, 'bookmark']);
+
+Route::post('/add-ebook', [ApiController::class, 'create']);
