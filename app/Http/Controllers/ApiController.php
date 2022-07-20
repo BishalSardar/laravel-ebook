@@ -113,13 +113,25 @@ class ApiController extends Controller
                 ->join('ebooks', 'categories.id', '=', 'ebooks.category_id')
                 ->get();
 
+            $category_data = Category::all();
+
+            $ebooks_with_cat = array();
+
+            for ($i = 0; $i < count($category_data); $i++) {
+                $cat_with_data = collect($ebooks)->where('category_id', $i + 1)->all();
+                $cat_data = array($category_data[$i]['category'] => $cat_with_data);
+                array_push($ebooks_with_cat, $cat_data);
+            }
+
+
             return response([
-                'status' => '200',
-                'ebook' => $ebooks
+                'status' => 200,
+                'data' => $ebooks_with_cat,
+
             ]);
         } catch (Exception $exception) {
             return response([
-                'erroe' => $exception,
+                'error' => $exception,
 
             ]);
         }

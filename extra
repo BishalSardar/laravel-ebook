@@ -1,0 +1,14 @@
+            for ($i = 0; $i < count($category_data); $i++) { $cat_data=array($category_data[$i]['category']=> $ebooks);
+                for ($j = 0; $j < count($ebook_data); $j++) { if ($category_data[$i]['id']==$ebooks[$j]['category_id']) { array_push($ebooks_with_cat, [$category_data[$i]['category']=> collect($ebooks)->where('category_id', $i)->all()]);
+                    }
+                    }
+                    }
+
+
+                    $ebooks_with_cat[0]['test']->push(((object)['name' => 'Game1', 'color' => 'red']));
+
+                    $cat = DB::table('ebooks')->where('category_id', '1')->get();
+
+                    $cat_data = array(['Class1' => $cat, 'Class2' => $ebooks, 'Class3' => $ebooks]);
+
+                    $cat_with_data = collect($ebooks)->where('category_id', 2)->all();
