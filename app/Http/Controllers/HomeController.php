@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Ebook;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,7 @@ class HomeController extends Controller
     public function index()
     {
         $ebook = Ebook::all();
-        return view('home', compact('ebook'));
+        $categories = Category::all();
+        return view('home', compact('ebook', 'categories'));
     }
 }

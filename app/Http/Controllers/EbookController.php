@@ -60,8 +60,9 @@ class EbookController extends Controller
                 $pdfFileName = $pdfFile->getClientOriginalName();
                 $pdfFile->move(public_path('PDF'), $pdfFileName);
                 $ebook['pdf'] = $pdfFileName;
-                $ebook->name = $request->name;
             }
+            $ebook->name = $request->name;
+            $ebook->category_id = $request->category_id;
             $ebook->save();
         } catch (Exception $exception) {
             dd($exception);
@@ -91,7 +92,8 @@ class EbookController extends Controller
     public function edit(Ebook $ebook, $id)
     {
         $item = Ebook::find($id);
-        return view('update', compact('item'));
+        $categories = Category::all();
+        return view('update', compact('item', 'categories'));
     }
 
     /**
@@ -120,8 +122,9 @@ class EbookController extends Controller
                 $pdfFileName = $pdfFile->getClientOriginalName();
                 $pdfFile->move(public_path('PDF'), $pdfFileName);
                 $ebook['pdf'] = $pdfFileName;
-                $ebook->name = $request->name;
             }
+            $ebook->name = $request->name;
+            $ebook->category_id = $request->category_id;
             $ebook->update();
         } catch (Exception $exception) {
             dd($exception);
@@ -147,5 +150,18 @@ class EbookController extends Controller
     public function destroy(Ebook $ebook)
     {
         //
+    }
+
+    function category(Request $request)
+    {
+        try {
+            $cat = new Category();
+            $cat->category = $request->category;
+            $cat->save();
+        } catch (Exception $exception) {
+            dd($exception);
+            return redirect()->back()->with('error', 'This is the error' . $exception);
+        }
+        return redirect()->back();
     }
 }

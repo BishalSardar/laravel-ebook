@@ -29,3 +29,4 @@ Route::post('/home', [EbookController::class, 'store'])->name('home.store');
 Route::get('edit/{id}', [EbookController::class, 'edit'])->name('edit');
 Route::post('update/{id}', [EbookController::class, 'update'])->name('update');
 Route::get('delete/{id}', [EbookController::class, 'delete'])->name('delete');
+Route::get('/category', [EbookController::class, 'category'])->name('category');

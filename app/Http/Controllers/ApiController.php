@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
+use App\Models\Category;
 use App\Models\Ebook;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\Cast\Bool_;
 
 class ApiController extends Controller
@@ -92,5 +94,34 @@ class ApiController extends Controller
             'status' => '200',
             'bookmark' => $bookmark,
         ]);
+    }
+
+    function category()
+    {
+        $cat = Category::all();
+        return response([
+            'status' => '200',
+            'category' => $cat,
+        ]);
+    }
+
+
+    function categoryWiseEbook()
+    {
+        try {
+            $ebooks = DB::table('categories')
+                ->join('ebooks', 'categories.id', '=', 'ebooks.category_id')
+                ->get();
+
+            return response([
+                'status' => '200',
+                'ebook' => $ebooks
+            ]);
+        } catch (Exception $exception) {
+            return response([
+                'erroe' => $exception,
+
+            ]);
+        }
     }
 }

@@ -25,3 +25,7 @@ Route::get('/all-bookmark', [ApiController::class, 'allBookmark']);
 Route::post('/bookmark/{id}', [ApiController::class, 'bookmark']);
 
 Route::post('/add-ebook', [ApiController::class, 'create']);
+
+Route::get('/category', [ApiController::class, 'category']);
+
+Route::get('/category-wise-ebook', [ApiController::class, 'categoryWiseEbook']);

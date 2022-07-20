@@ -95,6 +95,14 @@
                 <input type="text" name="name" class="form-control" id="Name" value="{{$item['name']}}" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
+                <label for="Category" class="form-label">Category</label>
+                <select class="form-select" name="category" aria-label="Default select example">
+                    @foreach($categories as $cat)
+                    <option value="{{$cat->category}}">{{$cat->category}} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
                 <input type="file" name="image" class="form-control" id="file" accept=".jpg,.png,.jpeg" aria-describedby="emailHelp">
             </div>

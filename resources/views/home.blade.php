@@ -44,6 +44,12 @@
             display: flex;
             gap: 1em;
         }
+
+        .cat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -101,15 +107,33 @@
             </div>
         </div>
     </nav>
-    <h1>CRUD OPERATION</h1>
+    <h1>Ebook</h1>
 
-    <div class="container mt-3 pt-5">
+    <div class="container pt-5">
         <form action="{{route('home.store')}}" method="POST" enctype="multipart/form-data" class="form">
             {{csrf_field()}}
 
             <div class="mb-3">
                 <label for="Name" class="form-label">Name</label>
                 <input type="text" name="name" class="form-control" id="Name" aria-describedby="emailHelp">
+            </div>
+
+            <label class="form-label">Category</label>
+            <div class="cat mb-3">
+                <div>
+                    <select class="form-select" name="category_id" aria-label="Default select example">
+                        @foreach($categories as $cat)
+                        <option value="{{$cat->id}}">{{$cat->category}} </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Add
+                    </button>
+                </div>
+
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
@@ -122,11 +146,13 @@
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
 
+
         <table class="table table-striped mt-4 table-2">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Image</th>
                     <th scope="col">Pdf</th>
                     <th scope="col">Action</th>
@@ -138,6 +164,7 @@
                     {{ $loop->index + 1}}
                 </th>
                 <td>{{$item->name}}</td>
+                <td>{{$item->category['name']}}</td>
                 <td> <img src="image/{{$item->image}}" alt="" class="image-style"> </td>
                 <td> <a href="pdf/{{$item->pdf}}" target="_blank">{{$item->pdf}}</a> </td>
                 <td>
@@ -150,6 +177,34 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('category')}}">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <label for="">Category</label>
+                            <input type="text" id="add-category" class="form-control" name="category">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="update-btn">Update</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 
