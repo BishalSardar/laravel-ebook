@@ -43,7 +43,7 @@ class ApiController extends Controller
             $ebook->save();
 
             return response([
-                'status' => '200'
+                'status' => '200',
             ]);
         } catch (Exception $exception) {
             return response([
