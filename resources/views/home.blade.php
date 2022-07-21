@@ -9,14 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <style>
-        h1 {
-            text-align: center;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            margin-top: 1em;
-        }
-
         .container {
-            width: 70%;
             display: flex;
             align-items: baseline;
             gap: 3em;
@@ -107,15 +100,19 @@
             </div>
         </div>
     </nav>
-    <h1>Ebook</h1>
 
-    <div class="container pt-5">
+    <div class="container">
         <form action="{{route('home.store')}}" method="POST" enctype="multipart/form-data" class="form">
             {{csrf_field()}}
 
             <div class="mb-3">
                 <label for="Name" class="form-label">Name</label>
                 <input type="text" name="name" class="form-control" id="Name" aria-describedby="emailHelp">
+            </div>
+
+            <div class="mb-3">
+                <label for="Author" class="form-label">Author</label>
+                <input type="text" name="author" class="form-control" id="Author" aria-describedby="emailHelp">
             </div>
 
             <label class="form-label">Category</label>
@@ -143,6 +140,10 @@
                 <label for="pdf" class="form-label">PDF</label>
                 <input type="file" name="pdf" class="form-control" id="file" accept=".pdf,.docs" aria-describedby="emailHelp">
             </div>
+            <div class="form-group">
+                <label for="desc" class="form-label">Description</label>
+                <textarea name="desc" class="form-control" id="desc" rows="2"></textarea>
+            </div>
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
 
@@ -152,6 +153,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Category</th>
                     <th scope="col">Image</th>
                     <th scope="col">Pdf</th>
@@ -164,6 +167,8 @@
                     {{ $loop->index + 1}}
                 </th>
                 <td>{{$item->name}}</td>
+                <td>{{$item->author}}</td>
+                <td>{{$item->desc}}</td>
                 <td>{{$item->category['name']}}</td>
                 <td> <img src="image/{{$item->image}}" alt="" class="image-style"> </td>
                 <td> <a href="pdf/{{$item->pdf}}" target="_blank">{{$item->pdf}}</a> </td>

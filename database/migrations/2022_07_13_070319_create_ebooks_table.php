@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('ebooks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('author');
+            $table->string('desc');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('image');

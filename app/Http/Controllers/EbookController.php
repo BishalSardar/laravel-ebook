@@ -16,13 +16,7 @@ class EbookController extends Controller
      */
     public function index()
     {
-        $cat_arr = array('All', 'Comic', 'Fantasy');
-        $data = new Category();
-        for ($i = 0; $i < count($cat_arr); $i++) {
-            $data->category = $cat_arr[$i];
-            $data->save();
-        };
-        return $cat_arr;
+        //
     }
 
     /**
@@ -62,6 +56,8 @@ class EbookController extends Controller
                 $ebook['pdf'] = $pdfFileName;
             }
             $ebook->name = $request->name;
+            $ebook->author = $request->author;
+            $ebook->desc = $request->desc;
             $ebook->category_id = $request->category_id;
             $ebook->save();
         } catch (Exception $exception) {
@@ -124,6 +120,8 @@ class EbookController extends Controller
                 $ebook['pdf'] = $pdfFileName;
             }
             $ebook->name = $request->name;
+            $ebook->author = $request->author;
+            $ebook->desc = $request->desc;
             $ebook->category_id = $request->category_id;
             $ebook->update();
         } catch (Exception $exception) {

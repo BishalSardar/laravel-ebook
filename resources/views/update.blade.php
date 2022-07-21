@@ -84,7 +84,6 @@
             </div>
         </div>
     </nav>
-    <h1>Update</h1>
 
     <div class="container container2 mt-3 pt-5">
         <form action="{{route('update',$item->id)}}" method="POST" enctype="multipart/form-data">
@@ -94,11 +93,17 @@
                 <label for="Name" class="form-label">Name</label>
                 <input type="text" name="name" class="form-control" id="Name" value="{{$item['name']}}" aria-describedby="emailHelp">
             </div>
+
+            <div class="mb-3">
+                <label for="Author" class="form-label">Author</label>
+                <input type="text" name="author" class="form-control" id="author" value="{{$item['author']}}" aria-describedby="emailHelp">
+            </div>
+
             <div class="mb-3">
                 <label for="Category" class="form-label">Category</label>
-                <select class="form-select" name="category" aria-label="Default select example">
+                <select class="form-select" name="category_id" aria-label="Default select example">
                     @foreach($categories as $cat)
-                    <option value="{{$cat->category}}">{{$cat->category}} </option>
+                    <option value="{{$cat->id}}">{{$cat->category}} </option>
                     @endforeach
                 </select>
             </div>
@@ -109,6 +114,11 @@
             <div class="mb-3">
                 <label for="pdf" class="form-label">PDF</label>
                 <input type="file" name="pdf" class="form-control" id="file" accept=".pdf,.docs" aria-describedby="emailHelp">
+            </div>
+
+            <div class="form-group">
+                <label for="desc" class="form-label">Description</label>
+                <textarea name="desc" class="form-control" id="desc" rows="2"></textarea>
             </div>
             <button type="submit" class="btn btn-primary mt-3">Update</button>
         </form>
