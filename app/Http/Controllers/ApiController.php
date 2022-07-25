@@ -54,17 +54,14 @@ class ApiController extends Controller
         }
     }
 
-    function singleEbook($id)
+    function singleEbook(Request $request, $id)
     {
         $ebook = Ebook::find($id);
 
         $recent = new Recent();
-        $recent->user_id = $recent->user_id;
-        $recent->ebook_id = $recent->ebook_id;
+        $recent->user_id = $request->user_id;
+        $recent->ebook_id = $request->ebook_id;
         $recent->save();
-
-
-
 
         return response([
             'status' => '200',
