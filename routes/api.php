@@ -32,3 +32,5 @@ Route::post('/add-ebook', [ApiController::class, 'create']);
 Route::get('/category', [ApiController::class, 'category']);
 
 Route::get('/category-wise-ebook', [ApiController::class, 'categoryWiseEbook']);
+
+Route::post('/search', [ApiController::class, 'search']);

@@ -136,7 +136,8 @@ class ApiController extends Controller
 
     function search(Request $request)
     {
-        $ebook = Ebook::where('name', 'LIKE', " %{$request->title}%")->get();
+        $name = $request->name;
+        $ebook = Ebook::where('name', 'LIKE', $name)->get();
         return response([
             'status' => '200',
             'ebooks' => $ebook
