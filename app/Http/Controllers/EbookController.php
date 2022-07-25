@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Ebook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Exception;
 
 class EbookController extends Controller
@@ -135,6 +136,11 @@ class EbookController extends Controller
     public function delete($id)
     {
         $data = Ebook::find($id);
+        $image_dest = 'Image/' . $data->image;
+        $pdf_des = 'PDF/' . $data->image;
+        if (File::exists($image_dest, $pdf_des)) {
+            File::delete($image_dest, $pdf_des);
+        }
         $data->delete();
         return redirect()->back();
     }

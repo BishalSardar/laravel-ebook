@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\Ebook;
+use App\Models\Recent;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,24 +58,28 @@ class ApiController extends Controller
     {
         $ebook = Ebook::find($id);
 
+        $recent = new Recent();
+        $recent->user_id = $recent->user_id;
+        $recent->ebook_id = $recent->ebook_id;
+        $recent->save();
+
+
+
+
         return response([
             'status' => '200',
             'ebook' => $ebook,
         ]);
     }
 
-    function bookmark(Request $request, $id)
+    function bookmark(Request $request)
     {
         try {
-            $ebook = Ebook::find($id);
-            $bookmark = new Bookmark();
 
-            if ($ebook['image'] && $ebook['pdf']) {
-                $bookmark['image'] = $ebook['image'];
-                $bookmark['pdf'] = $ebook['pdf'];
-                $bookmark->name = $ebook['name'];
-                $bookmark->save();
-            }
+            $bookmark = new Bookmark();
+            $bookmark->user_id = $request->user_id;
+            $bookmark->ebook_id = $request->ebook_id;
+            $bookmark->save();
 
             return response([
                 'status' => '200',
@@ -126,5 +131,25 @@ class ApiController extends Controller
 
             ]);
         }
+    }
+
+
+    function search(Request $request)
+    {
+        $ebook = Ebook::where('name', 'LIKE', " %{$request->title}%")->get();
+        return response([
+            'status' => '200',
+            'ebooks' => $ebook
+        ]);
+    }
+
+
+    function recentEbook(Request $request)
+    {
+        $recent_ebook = Recent::where('user_id', $request->user_id)->get();
+        return response([
+            'status' => '200',
+            'ebook' => $recent_ebook
+        ]);
     }
 }

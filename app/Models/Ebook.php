@@ -12,6 +12,11 @@ class Ebook extends Model
 
     function category()
     {
-        return $this->belongsTo(Ebook::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    function bookmark()
+    {
+        return $this->hasMany(Bookmark::class);
     }
 }

@@ -22,7 +22,10 @@ Route::get('/ebook/{id}', [ApiController::class, 'singleEbook']);
 
 Route::get('/all-bookmark', [ApiController::class, 'allBookmark']);
 
-Route::post('/bookmark/{id}', [ApiController::class, 'bookmark']);
+Route::post('/bookmark', [ApiController::class, 'bookmark']);
+
+Route::post('/recent-ebook', [ApiController::class, 'recentEbook']);
+
 
 Route::post('/add-ebook', [ApiController::class, 'create']);
 

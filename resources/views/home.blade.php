@@ -169,7 +169,7 @@
                 <td>{{$item->name}}</td>
                 <td>{{$item->author}}</td>
                 <td>{{$item->desc}}</td>
-                <td>{{$item->category['name']}}</td>
+                <td>{{$item->category['category']}}</td>
                 <td> <img src="image/{{$item->image}}" alt="" class="image-style"> </td>
                 <td> <a href="pdf/{{$item->pdf}}" target="_blank">{{$item->pdf}}</a> </td>
                 <td>
