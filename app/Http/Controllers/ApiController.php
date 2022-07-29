@@ -8,8 +8,10 @@ use App\Models\Ebook;
 use App\Models\Recent;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\Cast\Bool_;
+use Symfony\Component\Console\Input\Input;
 
 class ApiController extends Controller
 {
@@ -38,9 +40,8 @@ class ApiController extends Controller
                 $pdfFileName = $pdfFile->getClientOriginalName();
                 $pdfFile->move(public_path('PDF'), $pdfFileName);
                 $ebook['pdf'] = $pdfFileName;
-
-                $ebook->name = $request->name;
             }
+            $ebook->name = $request->name;
             $ebook->save();
 
             return response([
@@ -107,7 +108,6 @@ class ApiController extends Controller
         ]);
     }
 
-
     function categoryWiseEbook()
     {
         try {
@@ -116,10 +116,17 @@ class ApiController extends Controller
                 ->get()
                 ->groupBy('category');
 
+            $cat_array = Category::select('category')->get()->toArray();
+
+            for ($i = 0; $i < count($cat_array); $i++) {
+                array_push($cat_array[$i], $ebooks[$cat_array[$i]['category']]);
+            }
+
+
 
             return response([
                 'status' => 200,
-                'data' => $ebooks,
+                'data' => $cat_array,
 
             ]);
         } catch (Exception $exception) {
@@ -128,6 +135,17 @@ class ApiController extends Controller
 
             ]);
         }
+    }
+
+    function categoryEbook($id)
+    {
+
+        $cat_ebooks = DB::table('ebooks')->where('category_id', '=', $id)->get();
+
+        return response([
+            'status' => '200',
+            'ebooks' => $cat_ebooks,
+        ]);
     }
 
 
