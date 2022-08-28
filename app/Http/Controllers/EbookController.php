@@ -151,10 +151,6 @@ class EbookController extends Controller
      * @param  \App\Models\Ebook  $ebook
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ebook $ebook)
-    {
-        //
-    }
 
     function category(Request $request)
     {
